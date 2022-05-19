@@ -8,7 +8,7 @@ export default function Result() {
   const navigate = useNavigate();
 
   function passNavigationCallback() {
-    navigate("/home");
+    navigate("/");
   }
 
   function Maxium(cur, goal) {

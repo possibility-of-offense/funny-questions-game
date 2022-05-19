@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import logo from "./logo.svg";
 import Home from "./views/Home";
 import Result from "./views/Result";
@@ -23,8 +23,8 @@ function App() {
           value={{ cb: setRightAnswers, right: rightAnswers }}
         >
           <Routes>
-            <Route path="/home" element={<Home restart={setRightAnswers} />} />
-            <Route path="/home/result" element={<Result />} />
+            <Route path="/" element={<Home restart={setRightAnswers} />} />
+            <Route path="/result" element={<Result />} />
           </Routes>
         </RightAnswersContext.Provider>
       </QuestionsContext.Provider>

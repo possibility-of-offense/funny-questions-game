@@ -20,7 +20,7 @@ export default function Home({ restart }) {
       <div className="grid lg:grid-cols-container-grid-cols gap-10">
         <div className="bg-white p-3 shadow shadow-black-100 text-left">
           <h5 className="cursor-pointer text-sky-500 underline decoration-sky-500 pb-2">
-            <Link to="/result">1. Виж резултата </Link>
+            <Link to="/home/result">1. Виж резултата </Link>
           </h5>
           <h5
             onClick={() => {

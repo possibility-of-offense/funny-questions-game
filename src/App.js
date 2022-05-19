@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import logo from "./logo.svg";
+import Home from "./views/Home";
+import Result from "./views/Result";
+import "./App.css";
+
+import { questions } from "../src/data/questions";
+export const QuestionsContext = React.createContext(questions);
+export const RightAnswersContext = React.createContext("");
 
 function App() {
+  const [rightAnswers, setRightAnswers] = useState(0);
+
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App-header shadow-inner shadow-gray-500">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+
+      <QuestionsContext.Provider value={questions}>
+        <RightAnswersContext.Provider
+          value={{ cb: setRightAnswers, right: rightAnswers }}
+        >
+          <Routes>
+            <Route path="/" element={<Home restart={setRightAnswers} />} />
+            <Route path="/result" element={<Result />} />
+          </Routes>
+        </RightAnswersContext.Provider>
+      </QuestionsContext.Provider>
     </div>
   );
 }

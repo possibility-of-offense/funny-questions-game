@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/funny-questions-game/home/static/css/main.7814c2f4.css",
-    "main.js": "/funny-questions-game/home/static/js/main.450f416f.js",
-    "static/js/787.7f861f9f.chunk.js": "/funny-questions-game/home/static/js/787.7f861f9f.chunk.js",
-    "static/media/logo.svg": "/funny-questions-game/home/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/funny-questions-game/home/index.html",
-    "main.7814c2f4.css.map": "/funny-questions-game/home/static/css/main.7814c2f4.css.map",
-    "main.450f416f.js.map": "/funny-questions-game/home/static/js/main.450f416f.js.map",
-    "787.7f861f9f.chunk.js.map": "/funny-questions-game/home/static/js/787.7f861f9f.chunk.js.map"
+    "main.css": "/funny-questions-game/static/css/main.7814c2f4.css",
+    "main.js": "/funny-questions-game/static/js/main.b255e495.js",
+    "static/js/787.7f861f9f.chunk.js": "/funny-questions-game/static/js/787.7f861f9f.chunk.js",
+    "static/media/logo.svg": "/funny-questions-game/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/funny-questions-game/index.html",
+    "main.7814c2f4.css.map": "/funny-questions-game/static/css/main.7814c2f4.css.map",
+    "main.b255e495.js.map": "/funny-questions-game/static/js/main.b255e495.js.map",
+    "787.7f861f9f.chunk.js.map": "/funny-questions-game/static/js/787.7f861f9f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7814c2f4.css",
-    "static/js/main.450f416f.js"
+    "static/js/main.b255e495.js"
   ]
 }

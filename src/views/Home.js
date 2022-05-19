@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { QuestionsContext } from "../App";
 import QuestionsActions from "../components/QuestionsActions";
 import QuestionsBody from "../components/QuestionsBody";

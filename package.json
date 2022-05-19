@@ -2,7 +2,7 @@
   "name": "react-questions",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://possibility-of-offense.github.io/funny-questions-game",
+  "homepage": "http://possibility-of-offense.github.io/funny-questions-game/home",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",

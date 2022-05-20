@@ -31,7 +31,7 @@ export default function Result() {
 
       {rightAnswersContext.right ? (
         <h2 className="text-2xl">
-          Твоят резултат е {rightAnswersContext.right} от 3
+          Твоят резултат е {rightAnswersContext.right} от 4
           {Maxium(rightAnswersContext.right, 3)}
         </h2>
       ) : (

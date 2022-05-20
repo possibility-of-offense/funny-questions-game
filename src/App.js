@@ -23,7 +23,7 @@ function App() {
           value={{ cb: setRightAnswers, right: rightAnswers }}
         >
           <Routes>
-            <Route path="/" element={<Home restart={setRightAnswers} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/result" element={<Result />} />
           </Routes>
         </RightAnswersContext.Provider>

@@ -1,35 +1,32 @@
 import { useContext, useEffect, useRef, useState } from "react";
+
+import { RightAnswersContext } from "../App";
+import { CurrentAndMaximumContext } from "../views/Home";
+
 import Button from "./generic/Button";
 import QuestionsBodySingle from "./QuestionsBodySingle";
-import { RightAnswersContext } from "../App";
 
-export default function QuestionsBody({ question, newQuestion, setAlert }) {
+export default function QuestionsBody({
+  question,
+  newQuestion,
+  answeredCb,
+  passedCb,
+  passedQuestions,
+  setAlert,
+}) {
+  const rightAnswersContext = useContext(RightAnswersContext);
+  const currentAndMaximum = useContext(CurrentAndMaximumContext);
+
   const [answers, setAnswers] = useState(Object.entries(question.answers));
   const [selected, setSelected] = useState(null);
   const [hide, setHide] = useState(false);
-
-  const rightAnswersContext = useContext(RightAnswersContext);
+  const [disable, setDisable] = useState(false);
 
   const itemRef = useRef(null);
 
   useEffect(() => {
     setAnswers(Object.entries(question.answers));
   }, [question]);
-
-  useEffect(() => {
-    let timer;
-
-    if (selected !== null) {
-      timer = setTimeout(() => {
-        setAlert("");
-        setHide(false);
-      }, 2000);
-    }
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [selected]);
 
   const handleClick = (e, id) => {
     itemRef.current = id;
@@ -38,7 +35,6 @@ export default function QuestionsBody({ question, newQuestion, setAlert }) {
   };
 
   const handleSubmit = () => {
-    setHide(true);
     const found = answers.find((el) => {
       return el[0] === selected;
     });
@@ -53,7 +49,12 @@ export default function QuestionsBody({ question, newQuestion, setAlert }) {
       setSelected("");
       itemRef.current = null;
 
-      newQuestion((prev) => prev + 1);
+      answeredCb((prev) => prev + 1);
+      passedCb((prev) => [...prev, question.id]);
+
+      if (currentAndMaximum.cur < currentAndMaximum.max) {
+        newQuestion.set((prev) => prev + 1);
+      }
     }
   };
 
@@ -63,12 +64,17 @@ export default function QuestionsBody({ question, newQuestion, setAlert }) {
         <div className="p-4 border-b-2 border-solid text-lg font-bold tracking-wide uppercase">
           {question.questionTitle}
         </div>
-        <div className={`bg-zinc-100 text-left`}>
+        <div
+          className={`bg-zinc-100 text-left ${
+            passedQuestions.includes(question.id) ? "disable-div" : ""
+          }`}
+        >
           {answers.map((answer, i, arr) => {
             return (
               <QuestionsBodySingle
                 key={answer[0]}
                 answer={{ answer, i, arr }}
+                disabled={passedQuestions.includes(question.id)}
                 cb={handleClick}
                 ref={itemRef}
               />
@@ -78,8 +84,11 @@ export default function QuestionsBody({ question, newQuestion, setAlert }) {
       </div>
 
       <div className="p-4 pb-3 flex justify-end">
-        <Button toDisable={selected === null} passedEvent={handleSubmit}>
-          Изпрати по Спиди
+        <Button
+          toDisable={selected === null || passedQuestions.includes(question.id)}
+          passedEvent={handleSubmit}
+        >
+          Изпрати
         </Button>
       </div>
     </div>

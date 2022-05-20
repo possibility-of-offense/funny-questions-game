@@ -15,7 +15,7 @@ export default function Result() {
     if (cur === goal) {
       return (
         <p className="pt-3 font-bold">
-          Достигна максималния брой отговори куче! Поздравления!
+          Достигна максималния брой отговори! Поздравления!
         </p>
       );
     }
@@ -24,7 +24,9 @@ export default function Result() {
   return (
     <div className="relative result mt-3 bg-white p-6 rounded-sm shadow shadow-gray-300 container mx-auto">
       <div className="lg:absolute">
-        <Button passedEvent={passNavigationCallback}>Върни се отначало</Button>
+        <Button passedEvent={passNavigationCallback}>
+          Върни се отначало и започни наново играта!
+        </Button>
       </div>
 
       {rightAnswersContext.right ? (
@@ -33,7 +35,7 @@ export default function Result() {
           {Maxium(rightAnswersContext.right, 3)}
         </h2>
       ) : (
-        "Все още нямаш резултат ленивецо!"
+        "Все още нямаш резултат!"
       )}
     </div>
   );

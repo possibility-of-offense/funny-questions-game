@@ -26,3 +26,35 @@ code {
 .transslucent {
   opacity: 0.5;
 }
+
+.dada {
+  animation: dada 1s ease-out;
+}
+
+@keyframes dada {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.disable-div > div {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.remove-after {
+  animation-delay: 2s;
+  animation: remove 2s ease-out forwards;
+}
+
+@keyframes remove {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

@@ -1,14 +1,26 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { QuestionsContext } from "../App";
-import QuestionsActions from "../components/QuestionsActions";
-import QuestionsBody from "../components/QuestionsBody";
-import Alert from "../components/generic/Alert";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Home({ restart }) {
+import Alert from "../components/generic/Alert";
+import Button from "../components/generic/Button";
+import QuestionsActions from "../components/QuestionsActions";
+import QuestionsContainer from "../components/QuestionsContainer";
+import QuestionsCount from "../components/QuestionsCount";
+
+export const CurrentAndMaximumContext = React.createContext();
+
+export default function Home() {
   const questionsContext = useContext(QuestionsContext);
+
   const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [answeredQuestions, setAnsweredQuestions] = useState(0);
+  const [passedQuestions, setPassedQuestions] = useState([]);
   const [alert, setAlert] = useState(null);
+
+  console.log(passedQuestions.length === questionsContext.length);
+
+  const navigate = useNavigate();
 
   const findCurrentQuestion = (questions, id) => {
     const found = questions.find((el) => el.id === id);
@@ -25,7 +37,9 @@ export default function Home({ restart }) {
           <h5
             onClick={() => {
               setCurrentQuestion(1);
-              restart(0);
+              setAnsweredQuestions(0);
+              setPassedQuestions([]);
+              setAlert(null);
             }}
             className="cursor-pointer text-sky-500 underline decoration-sky-500 pb-2"
           >
@@ -33,33 +47,55 @@ export default function Home({ restart }) {
           </h5>
         </div>
         <div>
-          {typeof alert === "boolean" && alert ? (
-            <Alert>Правилен отговор</Alert>
-          ) : (
-            typeof alert === "boolean" &&
-            !alert && (
-              <Alert classes="bg-red-300 p-2 text-center">Грешен отговор</Alert>
-            )
-          )}
-          {currentQuestion <= 3 ? (
-            <div className="bg-white p-3 shadow shadow-black-100">
-              {/* <QuestionsActions /> */}
-              <QuestionsBody
-                question={findCurrentQuestion(
-                  questionsContext,
-                  currentQuestion
-                )}
-                newQuestion={setCurrentQuestion}
-                setAlert={setAlert}
-              />
-            </div>
-          ) : (
-            <div className="p-2 bg-white rounder-sm shadow-md shadow-gray-300 flex justify-center items-center">
-              <h2 className="text-2xl underline decoration-1">
-                Нема повече въпроси!
-              </h2>
-            </div>
-          )}
+          <div
+            className={`${
+              passedQuestions.length === questionsContext.length
+                ? "remove-after"
+                : ""
+            }`}
+          >
+            {typeof alert === "boolean" && alert ? (
+              <Alert>Правилен отговор</Alert>
+            ) : (
+              typeof alert === "boolean" &&
+              !alert && (
+                <Alert classes={`bg-red-300 p-2 text-center`}>
+                  Грешен отговор
+                </Alert>
+              )
+            )}
+          </div>
+
+          <div className="bg-white p-3 shadow shadow-black-100">
+            <CurrentAndMaximumContext.Provider
+              value={{ cur: currentQuestion, max: questionsContext.length }}
+            >
+              <QuestionsCount answersCount={answeredQuestions} />
+
+              {answeredQuestions < questionsContext.length && (
+                <>
+                  <QuestionsActions cb={setCurrentQuestion} />
+                  <QuestionsContainer
+                    question={findCurrentQuestion(
+                      questionsContext,
+                      currentQuestion
+                    )}
+                    newQuestion={{ set: setCurrentQuestion }}
+                    answeredCb={setAnsweredQuestions}
+                    passedCb={setPassedQuestions}
+                    passedQuestions={passedQuestions}
+                    setAlert={setAlert}
+                  />
+                </>
+              )}
+
+              {answeredQuestions === questionsContext.length && (
+                <Button passedEvent={() => navigate("/result")}>
+                  Виж резултата
+                </Button>
+              )}
+            </CurrentAndMaximumContext.Provider>
+          </div>
         </div>
       </div>
     </div>

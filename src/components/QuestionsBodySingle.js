@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 const QuestionsBodySingle = React.forwardRef(
-  ({ answer, cb: handleClick }, ref) => {
+  ({ answer, cb: handleClick, disabled }, ref) => {
     const [paint, setPaint] = useState(false);
 
     useEffect(() => {
@@ -28,7 +28,9 @@ const QuestionsBodySingle = React.forwardRef(
     return (
       <div
         onClick={(e) => {
-          handleClick(e, answer.answer[0]);
+          if (!disabled) {
+            handleClick(e, answer.answer[0]);
+          }
         }}
         className={`cursor-pointer transition  ${
           paint ? "bg-zinc-400" : "hover:bg-zinc-300"

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { QuestionsContext } from "../App";
+import { QuestionsContext, RightAnswersContext } from "../App";
 import { Link, useNavigate } from "react-router-dom";
 
 import Alert from "../components/generic/Alert";
@@ -12,13 +12,12 @@ export const CurrentAndMaximumContext = React.createContext();
 
 export default function Home() {
   const questionsContext = useContext(QuestionsContext);
+  const rightAnswersContext = useContext(RightAnswersContext);
 
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [answeredQuestions, setAnsweredQuestions] = useState(0);
   const [passedQuestions, setPassedQuestions] = useState([]);
   const [alert, setAlert] = useState(null);
-
-  console.log(passedQuestions.length === questionsContext.length);
 
   const navigate = useNavigate();
 
@@ -40,6 +39,7 @@ export default function Home() {
               setAnsweredQuestions(0);
               setPassedQuestions([]);
               setAlert(null);
+              rightAnswersContext.cb(0);
             }}
             className="cursor-pointer text-sky-500 underline decoration-sky-500 pb-2"
           >

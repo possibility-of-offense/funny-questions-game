@@ -8,6 +8,7 @@ export default function Result() {
   const navigate = useNavigate();
 
   function passNavigationCallback() {
+    rightAnswersContext.cb(0);
     navigate("/");
   }
 
@@ -32,7 +33,7 @@ export default function Result() {
       {rightAnswersContext.right ? (
         <h2 className="text-2xl">
           Твоят резултат е {rightAnswersContext.right} от 4
-          {Maxium(rightAnswersContext.right, 3)}
+          {Maxium(rightAnswersContext.right, 4)}
         </h2>
       ) : (
         "Все още нямаш резултат!"
